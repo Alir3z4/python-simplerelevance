@@ -28,4 +28,15 @@ class SimpleRelevance(object):
         self.async = async
         self.business_name = business_name
 
+    def authorize(self, request):
+        """
+        :param request: Request instance to authorize the request.
+        :type request: urllib2.Request
+        :return: urllib2.Request
+        """
+        base64encoded = base64.encodestring(
+            "{0}:{1}".format(self.business_name, self.api_key)
+        ).replace('\n', '')
+        request.add_header('Authorization', 'Basic {0}'.format(base64encoded))
 
+        return request
