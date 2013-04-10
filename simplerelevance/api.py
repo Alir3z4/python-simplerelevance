@@ -68,3 +68,20 @@ class SimpleRelevance(object):
         return self.request_opener(
             urllib2.Request("{0}{1}".format(self.api_url, endpoint), params)
         )
+
+    def post(self, endpoint, data):
+        """
+        :param endpoint: API endpoint to send request to. ex; users/
+        :type endpoint: str
+        :param data: Data/Payload to send over request.
+        :type data: dict
+        :return: dict
+        """
+        data = {
+            'async': self.async,
+            'data': data
+        }
+
+        return self.request_opener(
+            urllib2.Request("{0}{1}".format(self.api_url, endpoint), data)
+        )
