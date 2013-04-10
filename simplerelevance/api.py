@@ -40,3 +40,18 @@ class SimpleRelevance(object):
         request.add_header('Authorization', 'Basic {0}'.format(base64encoded))
 
         return request
+
+    def request_opener(self, request):
+        """
+         Provides simple JSON serializing on data, and return simple
+        exception where an error occurred.
+
+        :param request: Request instance for sending to the server.
+        :type request: urllib2.Request
+        :return: urllib2.Request
+        """
+        try:
+            return json.loads(urllib2.urlopen(self.authorize(request)).read())
+        except urllib2.URLError as e:
+            raise urllib2.URLError("{0}:\n\t{1}".format(e.code, e.read()))
+
