@@ -92,6 +92,35 @@ class SimpleRelevance(object):
             urllib2.Request("%s%s" % (self.api_url, endpoint), data)
         )
 
+    def users(self):
+        """
+        :return: The following request params either filter user returns or
+            modify what information is returned, as described:
+
+        - **user_email**: Match users with the given email.
+        - **user_external_id**: Match users to an ID to match the
+            "external_id" field you used when you first uploaded them.
+        - **city**: Match users near the given city/state combo.
+            Requires ``city`` and ``state``.
+        - **state**: Match users near the given city/state combo.
+            Requires ``city`` and ``state``.
+        - **market**: Match users near the given market.
+        - **zipcode**: Match users near the given zipcode.
+        - **radius**: Sets the radius, in rough miles, of location searches.
+        - **attribute_guids_or**: Match users with any of the given attributes,
+            using the global IDs of the attributes (see the attributes/ hook).
+        - **attribute_guids_and**: Match users with all of the given
+            attributes, using the global IDs of the attributes
+            (see the attributes/ hook).
+        - **batch_guids**: Match users to a list of guids (guid is a global
+            ID returned by this hook for each user).
+        - **return_time_of_day**: Include the average time of day that each
+            user has interacted with your site in the past - this is a boolean
+            which defaults to false in the interest of speed.
+
+        :rtype: dict
+        """
+        return self.get('users/', {})
 
     def add_user(self, email, zipcode=None, user_id=None, data_dict={}):
         """
