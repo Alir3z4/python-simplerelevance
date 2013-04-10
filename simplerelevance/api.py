@@ -3,6 +3,7 @@ import json
 import urllib
 import urllib2
 
+
 class SimpleRelevance(object):
     def __init__(self, api_key, business_name, async=0):
         """
@@ -21,7 +22,6 @@ class SimpleRelevance(object):
         response times by a factor of 2 or 3.
         :type async: int
 
-        :return:
         """
         self.api_url = "https://www.simplerelevance.com/api/v3/"
         self.api_key = api_key
@@ -32,6 +32,8 @@ class SimpleRelevance(object):
         """
         :param request: Request instance to authorize the request.
         :type request: urllib2.Request
+
+        :rtype: urllib2.Request
         """
         base64encoded = base64.encodestring(
             "{0}:{1}".format(self.business_name, self.api_key)
@@ -47,7 +49,7 @@ class SimpleRelevance(object):
 
         :param request: Request instance for sending to the server.
         :type request: urllib2.Request
-        :return: urllib2.Request
+
         :rtype: dict
         """
         try:
@@ -59,27 +61,37 @@ class SimpleRelevance(object):
         """
         :param endpoint: API endpoint to send request to. ex; users/
         :type endpoint: str
+
         :param params: Data parameters to encode and send through request.
         :type params: dict
-        :return: dict
+
+        :rtype: dict
         """
         params = urllib.urlencode(params)
 
         return self.request_opener(
-            urllib2.Request("{0}{1}".format(self.api_url, endpoint), params)
+            urllib2.Request("%s%s?%s" % (self.api_url, endpoint, params))
         )
 
     def post(self, endpoint, data):
         """
         :param endpoint: API endpoint to send request to. ex; users/
         :type endpoint: str
+
         :param data: Data/Payload to send over request.
         :type data: dict
-        :return: dict
+
+        :rtype: dict
         """
-        data = {
+        data.update({
             'async': self.async,
-            'data': data
+        })
+        data = urllib.urlencode(data)
+
+        return self.request_opener(
+            urllib2.Request("%s%s" % (self.api_url, endpoint), data)
+        )
+
 
     def add_user(self, email, zipcode=None, user_id=None, data_dict={}):
         """
