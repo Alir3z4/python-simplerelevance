@@ -32,7 +32,6 @@ class SimpleRelevance(object):
         """
         :param request: Request instance to authorize the request.
         :type request: urllib2.Request
-        :return: urllib2.Request
         """
         base64encoded = base64.encodestring(
             "{0}:{1}".format(self.business_name, self.api_key)
@@ -49,11 +48,12 @@ class SimpleRelevance(object):
         :param request: Request instance for sending to the server.
         :type request: urllib2.Request
         :return: urllib2.Request
+        :rtype: dict
         """
         try:
-            return json.loads(urllib2.urlopen(self.authorize(request)).read())
+            return urllib2.urlopen(self.authorize(request)).read()
         except urllib2.URLError as e:
-            raise urllib2.URLError("{0}:\n\t{1}".format(e.code, e.read()))
+            raise urllib2.URLError("%s:\n\t%s" % (e.code, e.read()))
 
     def get(self, endpoint, params):
         """
