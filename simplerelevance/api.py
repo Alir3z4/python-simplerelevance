@@ -144,7 +144,15 @@ class SimpleRelevance(object):
 
         :rtype: dict
         """
-        return self.get('users/', {})
+        if (city or state) and (not city or not state):
+            raise ValueError("'city', 'state' required to both be provided")
+
+        params = {}
+        for k, v in locals().items():
+            if v is not self and k and v:
+                params[k] = v
+
+        return self.get('users/', params)
 
     def add_user(self, email, zipcode=None, user_id=None, data_dict={}):
         """
