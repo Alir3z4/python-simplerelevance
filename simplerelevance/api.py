@@ -55,3 +55,16 @@ class SimpleRelevance(object):
         except urllib2.URLError as e:
             raise urllib2.URLError("{0}:\n\t{1}".format(e.code, e.read()))
 
+    def get(self, endpoint, params):
+        """
+        :param endpoint: API endpoint to send request to. ex; users/
+        :type endpoint: str
+        :param params: Data parameters to encode and send through request.
+        :type params: dict
+        :return: dict
+        """
+        params = urllib.urlencode(params)
+
+        return self.request_opener(
+            urllib2.Request("{0}{1}".format(self.api_url, endpoint), params)
+        )
