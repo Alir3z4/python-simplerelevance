@@ -80,8 +80,37 @@ class SimpleRelevance(object):
         data = {
             'async': self.async,
             'data': data
+
+    def add_user(self, email, zipcode=None, user_id=None, data_dict={}):
+        """
+         The only required parameter is "email". Optional are zipcode,
+        user_id, data_dict. The data_dict can contain and reserved an
+        non-reserved attributes you wish to add (see the reserved section of
+        these docs for details).
+
+        :param email: The email address of the user.
+        :type email: str
+
+        :param zipcode: User ZipCode(Optional).
+        :type zipcode: str
+
+        :param user_id: ID of the user(Optional).
+        :type user_id: int
+
+        :param data_dict: The data_dict works on key=>value pairs, so do not
+        duplicate keys for unrelated attributes(Optional).
+        :type data_dict: list of dict
+
+        :rtype: dict
+        """
+        post_data = {
+            'email': email,
+            'user_id': user_id,
+            'data_dict': json.dumps(data_dict)
         }
 
-        return self.request_opener(
-            urllib2.Request("{0}{1}".format(self.api_url, endpoint), data)
-        )
+        if zipcode:
+            post_data['zipcode'] = zipcode
+
+        return self.post('users/', post_data)
+
