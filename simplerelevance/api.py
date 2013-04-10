@@ -1,6 +1,7 @@
+import base64
 import json
-import requests
-
+import urllib
+import urllib2
 
 class SimpleRelevance(object):
     def __init__(self, api_key, business_name, async=0):
@@ -25,46 +26,4 @@ class SimpleRelevance(object):
         self.async = async
         self.business_name = business_name
 
-    def request_opener(self, endpoint, data=None):
-        """
-        Really handy shortcut for querying API.
 
-         Provides simple JSON serializing on data, and return simple
-        exception where an error occurred.
-
-        :param endpoint: API endpoint to send request to. ex; users/
-        :type endpoint: str
-        :param data: Data/Payload to send over request.
-        :type data: dict
-        :return: dict
-        # """
-        # try:
-        #     return json.loads(self.opener.open(
-        #         '{0}/{1}'.format(self.api_url, endpoint), data).read())
-        # except urllib2.HTTPError as e:
-        #     raise urllib2.URLError("{0}:\n\t{1}".format(e.code, e.read()))
-        pass
-
-    def _post(self, endpoint, post_data):
-        """
-
-        :param endpoint: API endpoint to send request to. ex; users/
-        :type endpoint: str
-        :param post_data: Data/Payload to send over request.
-        :type post_data: dict
-        :return: dict
-        """
-        data = {
-            'async': self.async,
-            'data': json.dumps(post_data)
-        }
-        return requests.post(
-            "{0}{1}".format(self.api_url, endpoint),
-            data=data, auth=(self.business_name, self.api_key)
-        )
-
-    def _get(self, endpoint, get_params):
-        return requests.get(
-            "{0}{1}".format(self.api_url, endpoint), params=get_params,
-            auth=(self.business_name, self.api_key)
-        )
