@@ -92,31 +92,55 @@ class SimpleRelevance(object):
             urllib2.Request("%s%s" % (self.api_url, endpoint), data)
         )
 
-    def users(self):
+    def users(self, user_email=None, user_external_id=None,
+              city=None, state=None, market=None, zipcode=None,
+              radius=None, attribute_guids_or=None, attribute_guids_and=None,
+              batch_guids=None, return_time_of_day=None):
         """
-        :return: The following request params either filter user returns or
-            modify what information is returned, as described:
+         The following request params either filter user returns or
+        modify what information is returned, as described:
 
-        - **user_email**: Match users with the given email.
-        - **user_external_id**: Match users to an ID to match the
-            "external_id" field you used when you first uploaded them.
-        - **city**: Match users near the given city/state combo.
-            Requires ``city`` and ``state``.
-        - **state**: Match users near the given city/state combo.
-            Requires ``city`` and ``state``.
-        - **market**: Match users near the given market.
-        - **zipcode**: Match users near the given zipcode.
-        - **radius**: Sets the radius, in rough miles, of location searches.
-        - **attribute_guids_or**: Match users with any of the given attributes,
-            using the global IDs of the attributes (see the attributes/ hook).
-        - **attribute_guids_and**: Match users with all of the given
-            attributes, using the global IDs of the attributes
-            (see the attributes/ hook).
-        - **batch_guids**: Match users to a list of guids (guid is a global
-            ID returned by this hook for each user).
-        - **return_time_of_day**: Include the average time of day that each
-            user has interacted with your site in the past - this is a boolean
-            which defaults to false in the interest of speed.
+        :param user_email: Match users with the given email.
+        :type user_email: str
+
+        :param user_external_id: Match users to an ID to match the
+         "external_id" field you used when you first uploaded them.
+        :type user_external_id: str
+
+        :param city Match users near the given city/state combo.
+         Requires city and state.
+        :type city: str
+
+        :param state: Match users near the given city/state combo.
+         Requires city and state.
+        :type state: str
+
+        :param market: Match users near the given market.
+        :type market: str
+
+        :param zipcode: Match users near the given zipcode.
+        :type zipcode: str
+
+        :param radius: Match users with any of the given attributes, using
+         the global IDs of the attributes (see the attributes/ hook).
+        :type radius: str
+
+        :param attribute_guids_or: Match users with all of the given
+         attributes, using the global IDs of the attributes.
+        :type attribute_guids_or: str
+
+        :param attribute_guids_and: Match users to a list of guids
+         (guid is a global ID returned by this hook for each user)
+        :type attribute_guids_and: str
+
+        :param batch_guids: Match users to a list of guids (guid is a
+         global ID returned by this hook for each user).
+        :type batch_guids: str
+
+        :param return_time_of_day: Include the average time of day that each
+         user has interacted with your site in the past - this is a boolean
+         which defaults to false in the interest of speed.
+        :type return_time_of_day: str
 
         :rtype: dict
         """
