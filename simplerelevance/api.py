@@ -16,9 +16,11 @@ class SimpleRelevance(object):
         upper right hand side.
         :type business_name: str
 
-        :param async: When you are done testing, set async=1. This will speed up API
+        :param async: When you are done testing, set async=1.
+        This will speed up API
         response times by a factor of 2 or 3.
         :type async: int
+
         :return:
         """
         self.api_url = "https://www.simplerelevance.com/api/v3/"
