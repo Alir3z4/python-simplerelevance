@@ -99,6 +99,24 @@ class SimpleRelevance(object):
             urllib2.Request("%s%s" % (self.api_url, endpoint), data)
         )
 
+    def delete(self, endpoint, data):
+        """
+        Sending DELETE request.
+
+        :param endpoint: API endpoint for sending request to. ex; users/
+        :type endpoint: str
+
+        :param data: Data/Payload to send over request.
+        :type data: dict
+
+        :rtype: dict
+        """
+        data = urllib.urlencode(data)
+
+        return self.request_opener(
+            request=urllib2.Request("%s%s" % (self.api_url, endpoint), data),
+            method='DELETE'
+        )
     def users(self, user_email=None, user_external_id=None,
               city=None, state=None, market=None, zipcode=None,
               radius=None, attribute_guids_or=None, attribute_guids_and=None,
