@@ -433,3 +433,27 @@ class SimpleRelevance(object):
             post_data['item_type'] = item_type
 
         return self.post('items/', post_data)
+
+    def item_delete(self, item_guid, item_external_id=None):
+        """
+         Delete items one at a time by passing ``item_guid`` or
+        ``item_external_id``.
+
+        :param item_guid:  Match items to a guid.
+        :type item_guid: str
+
+        :param item_external_id: Match items to an ID to match the
+         "external_id" field you used when you first uploaded them.
+        :type item_external_id: str
+
+        :rtype: dict
+        """
+        data = {}
+        
+        for k, v in locals().items():
+            if v is not self and k and v:
+                data[k] = v
+
+        return self.delete('items/', data)
+
+
