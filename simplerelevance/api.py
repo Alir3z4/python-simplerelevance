@@ -374,6 +374,9 @@ class SimpleRelevance(object):
 
         :rtype: dict
         """
+        if item_id in ['', 0, None] or not item_id:
+            raise ValueError('`item_id` have Unknown value')
+
         post_data = {
             'item_name': item_name,
             'item_id': item_id,
