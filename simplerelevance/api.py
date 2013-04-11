@@ -2,6 +2,7 @@ import base64
 import json
 import urllib
 import urllib2
+from simplerelevance.constants.actiontype import ActionType
 from simplerelevance.utils import pair_required, expected_be
 
 
@@ -456,4 +457,90 @@ class SimpleRelevance(object):
 
         return self.delete('items/', data)
 
+    def actions(self, user_guid=None, item_guide=None, city=None, state=None,
+                latitude=None, longitude=None, action_type=ActionType.CLICKS,
+                market=None, zipcode=None, radius=None,
+                item_attribute_guids_or=None, item_attribute_guids_and=None,
+                user_attribute_guids_or=None, user_attribute_guids_and=None,
+                datetime_start=None, datetime_end=None):
+        """
+         Get Actions, can filter action returns or modify what information
+        returned
+
+        :param user_guid: Match actions with the given user, by user guid.
+        :type user_guid: str
+
+        :param item_guide: Match actions with the given item, by item guid.
+        :type item_guide: str
+
+        :param city: Match actions near the given city/state combo.
+         Requires city and state.
+        :type city: str
+
+        :param state: Match actions near the given city/state combo.
+         Requires city and state.
+        :type state: str
+
+        :param latitude: Match actions near the given lat/lon combo.
+         Requires latitude and longitude.
+        :type latitude: str
+
+        :param longitude: Match actions near the given lat/lon combo.
+         Requires latitude and longitude.
+        :type longitude: str
+
+        :param action_type: Filter actions by action type.
+         0 for clicks,1 for purchases, 5 for email opens.
+        :type action_type: str
+
+        :param market: Match actions near the given lat/lon combo.
+         Requires latitude and longitude.
+        :type market: str
+
+        :param zipcode: Match actions near the given lat/lon combo.
+         Requires latitude and longitude.
+        :type zipcode: str
+
+        :param radius: Sets the radius, in rough miles, of location searches.
+        :type radius: str
+
+        :param item_attribute_guids_or: Match actions concerning items with
+         any of the given attributes, using the global IDs of the attributes
+         (see the attributes/ hook).
+        :type item_attribute_guids_or: list
+
+        :param item_attribute_guids_and: Match actions concerning items with
+         all of the given attributes, using the global IDs of the attributes
+         (see the attributes/ hook).
+        :type item_attribute_guids_and: list
+
+        :param user_attribute_guids_or: Match actions concerning users with
+         any of the given attributes, using the global IDs of the attributes
+         (see the attributes/ hook).
+        :type user_attribute_guids_or: list
+
+        :param user_attribute_guids_and: Match actions concerning users with
+         all of the given attributes, using the global IDs of the attributes
+         (see the attributes/ hook).
+        :type user_attribute_guids_and: list
+
+        :param datetime_start: Return actions within the given datetimes.
+         Both or neither are required.
+        :type datetime_start: str
+
+        :param datetime_end:  Return actions within the given datetimes.
+         Both or neither are required.
+        :type datetime_end: str
+
+        :rtype: dict
+        """
+        pair_required(city, state)
+        pair_required(datetime_start, datetime_end)
+
+        params = {}
+        for k, v in locals().items():
+            if v is not self and k and v:
+                params[k] = v
+
+        return self.get('actions/', params)
 
