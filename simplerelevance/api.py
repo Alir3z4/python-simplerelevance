@@ -374,5 +374,14 @@ class SimpleRelevance(object):
 
         :rtype: dict
         """
-        pass
+        post_data = {
+            'item_name': item_name,
+            'item_id': item_id,
+            'data_dict': json.dumps(data_dict),
+            'variants': json.dumps(variants)
+        }
+        if item_type:
+            post_data['item_type'] = item_type
+
+        return self.post('items/', post_data)
 
