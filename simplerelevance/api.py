@@ -55,11 +55,13 @@ class SimpleRelevance(object):
 
         :rtype: dict
         """
-        method = method.upper()
-        if method in ['PUT', 'DELETE']:
-            request.get_method = lambda: method
-        else:
-            raise ValueError("'%s' is not supported.")
+
+        if method:
+            method = method.upper()
+            if method in ['PUT', 'DELETE']:
+                request.get_method = lambda: method
+            else:
+                raise ValueError("'%s' is not supported.")
 
         try:
             return urllib2.urlopen(self.authorize(request)).read()
