@@ -2,6 +2,7 @@ import base64
 import json
 import urllib
 import urllib2
+from simplerelevance.utils import pair_required, expected_be
 
 
 class SimpleRelevance(object):
@@ -191,8 +192,7 @@ class SimpleRelevance(object):
 
         :rtype: dict
         """
-        if (city or state) and (not city or not state):
-            raise ValueError("'city', 'state' required to both be provided")
+        pair_required(city, state)
 
         params = {}
         for k, v in locals().items():
@@ -249,8 +249,7 @@ class SimpleRelevance(object):
         data = {}
         for k, v in locals().items():
             if v is not self and k and v:
-                if not isinstance(v, int):
-                    raise ValueError("`k` expected to be an 'int'.")
+                expected_be(v, int)
                 data[k] = v
 
         return self.delete('users/', data)
