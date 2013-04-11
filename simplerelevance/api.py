@@ -337,4 +337,42 @@ class SimpleRelevance(object):
 
         return self.get('items/', params)
 
+    def item_add(self, item_name, item_id, item_type=None,
+                 data_dict={}, variants=[]):
+        """
+
+        :param item_name: The item's name - this should be unique across your
+         database if possible.
+        :type item_name: str
+
+        :param item_id: A unique ID for the item from your database.
+        :type item_id: str
+
+        :param item_type: This helps the SimpleRelevance system find semantic
+         data for your item. You can use any string you want (Optional).
+        :type item_type: str
+
+        :param data_dict: A bracketed json encodable dictionary. This can
+         have any attributes at all that apply to your item; the more the
+         better. See below for the list of reserved attribute names - these
+         help SimpleRelevance create semantic connections about your items.
+         Note that these include 'starts' and 'expires', in case your items
+         are time sensitive.
+        :type data_dict: dict
+
+        :param variants: A json encodable list of dictionaries with the same
+         format as the data dict. Variants support a subset of the data_dict
+         reserved keys. They are used for subtle differences in items - for
+         example, multiple sizes of shoe. In general, attributes you apply to
+         a variant of an item should not be able to help make a better
+         prediction about the person buying the item. Note that you can upload
+         an external_id for variants, but it should be unique across all
+         items. Otherwise you can upload "sku" or "name", which do not have
+         this restriction. You node at least one of these three to save a
+         variant at all.
+        :type variants: list of dict
+
+        :rtype: dict
+        """
+        pass
 
