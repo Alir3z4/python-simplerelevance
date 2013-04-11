@@ -12,3 +12,8 @@ def pair_required(first, second):
                                                              arg_name(second))
             )
 
+
+def expected_be(p_object, class_or_type_or_tuple):
+    if not isinstance(p_object, class_or_type_or_tuple):
+        raise TypeError("'%s' expected to be '%s'."
+                        % (arg_name(p_object), type(class_or_type_or_tuple)))
