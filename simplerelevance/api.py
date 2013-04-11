@@ -42,7 +42,7 @@ class SimpleRelevance(object):
 
         return request
 
-    def request_opener(self, request):
+    def request_opener(self, request, method=None):
         """
          Provides simple JSON serializing on data, and return simple
         exception where an error occurred.
@@ -50,8 +50,17 @@ class SimpleRelevance(object):
         :param request: Request instance for sending to the server.
         :type request: urllib2.Request
 
+        :param method: Request method.
+        :type method: str
+
         :rtype: dict
         """
+        method = method.upper()
+        if method in ['PUT', 'DELETE']:
+            request.get_method = lambda: method
+        else:
+            raise ValueError("'%s' is not supported.")
+
         try:
             return urllib2.urlopen(self.authorize(request)).read()
         except urllib2.URLError as e:
@@ -75,7 +84,7 @@ class SimpleRelevance(object):
 
     def post(self, endpoint, data):
         """
-        :param endpoint: API endpoint to send request to. ex; users/
+        :param endpoint: API endpoint for sending request to. ex; users/
         :type endpoint: str
 
         :param data: Data/Payload to send over request.
