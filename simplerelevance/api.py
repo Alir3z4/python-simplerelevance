@@ -239,10 +239,16 @@ class SimpleRelevance(object):
         :param user_guid: Match user to an "user_guid".
         :type user_guid: int
 
-        :param user_external_id: Match user to an "user_guid".
+        :param user_external_id: Match user to an "user_external_id".
         :type user_external_id: int
 
         :rtype: dict
         """
-        pass
+        data = {}
+        for k, v in locals().items():
+            if v is not self and k and v:
+                if not isinstance(v, int):
+                    raise ValueError("`k` expected to be an 'int'.")
+                data[k] = v
 
+        return self.delete('users/', data)
