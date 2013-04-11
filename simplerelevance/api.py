@@ -232,4 +232,17 @@ class SimpleRelevance(object):
 
         return self.post('users/', post_data)
 
+    def user_delete(self, user_guid, user_external_id=None):
+        """
+        Delete users one at a time by passing user_guid or user_external_id.
+
+        :param user_guid: Match user to an "user_guid".
+        :type user_guid: int
+
+        :param user_external_id: Match user to an "user_guid".
+        :type user_external_id: int
+
+        :rtype: dict
+        """
+        pass
 
