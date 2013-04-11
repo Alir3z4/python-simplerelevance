@@ -239,17 +239,16 @@ class SimpleRelevance(object):
         Delete users one at a time by passing user_guid or user_external_id.
 
         :param user_guid: Match user to an "user_guid".
-        :type user_guid: int
+        :type user_guid: str
 
         :param user_external_id: Match user to an "user_external_id".
-        :type user_external_id: int
+        :type user_external_id: str
 
         :rtype: dict
         """
         data = {}
         for k, v in locals().items():
             if v is not self and k and v:
-                expected_be(v, int)
                 data[k] = v
 
         return self.delete('users/', data)
