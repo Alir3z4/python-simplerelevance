@@ -327,5 +327,14 @@ class SimpleRelevance(object):
 
         :rtype: dict
         """
-        pass
+        pair_required(city, state)
+        pair_required(latitude, longtitude)
+
+        params = {}
+        for k, v in locals().items():
+            if v is not self and k and v:
+                params[k] = v
+
+        return self.get('items/', params)
+
 
