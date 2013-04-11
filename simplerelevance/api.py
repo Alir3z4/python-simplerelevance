@@ -92,9 +92,7 @@ class SimpleRelevance(object):
 
         :rtype: dict
         """
-        data.update({
-            'async': self.async,
-        })
+        data['async'] = self.async
         data = urllib.urlencode(data)
 
         return self.request_opener(
