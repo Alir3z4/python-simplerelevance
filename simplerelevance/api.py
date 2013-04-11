@@ -199,7 +199,7 @@ class SimpleRelevance(object):
 
         return self.get('users/', params)
 
-    def add_user(self, email, zipcode=None, user_id=None, data_dict={}):
+    def user_add(self, email, zipcode=None, user_id=None, data_dict={}):
         """
          The only required parameter is "email". Optional are zipcode,
         user_id, data_dict. The data_dict can contain and reserved an
