@@ -1,4 +1,4 @@
-class ActionTypes:
+class ActionType:
     """
     All actions are a combination of a user and an item.
     These include:
