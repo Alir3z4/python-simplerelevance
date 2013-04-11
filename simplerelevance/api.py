@@ -337,9 +337,10 @@ class SimpleRelevance(object):
 
         return self.get('items/', params)
 
-    def item_add(self, item_name, item_id, item_type=None,
-                 data_dict={}, variants=[]):
+    def item_update(self, item_name, item_id, item_type=None,
+                    data_dict={}, variants=[]):
         """
+        Update an item match with `item_id`.
 
         :param item_name: The item's name - this should be unique across your
          database if possible.
