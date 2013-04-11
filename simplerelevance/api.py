@@ -252,3 +252,79 @@ class SimpleRelevance(object):
                 data[k] = v
 
         return self.delete('users/', data)
+
+    def items(self, item_name=None, item_external_id=None, item_guid=None,
+              city=None, state=None, latitude=None, longtitude=None,
+              market=None, zipcode=None, radius=None, attribute_guids_or=None,
+              attribute_guids_and=None, variant_filters=None, batch_guids=None,
+              skip_useraction_return=False, filter_expired=True):
+        """
+         Get items, can filter item returns or modify what information
+        returned.
+
+        :param item_name: Match items with the given name.
+        :type item_name: str
+
+        :param item_external_id: Match items to an ID to match the
+         "external_id" field you used when you first uploaded them.
+        :type item_external_id: int
+
+        :param item_guid: Match items to a guid. Guids are returned by this
+         hook for each item.
+        :type item_guid: str
+
+        :param city: Match items to an ID to match the "external_id" field
+         you used when you first uploaded them.
+        :type city: str
+
+        :param state: Match items to an ID to match the "external_id" field
+         you used when you first uploaded them.
+        :type state: str
+
+        :param latitude: Match items near the given lat/lon combo.
+         Requires latitude and longitude.
+        :type latitude: str
+
+        :param longtitude: Match items near the given lat/lon combo.
+         Requires latitude and longitude.
+        :type longtitude: str
+
+        :param market: Match items near the given market.
+        :type market: str
+
+        :param zipcode: Match items near the given zipcode.
+        :type zipcode: str
+
+        :param radius: Sets the radius, in rough miles, of location searches.
+        :type radius: str
+
+        :param attribute_guids_or: Match items with any of the given
+         attributes, using the global IDs of the attributes
+         (see the attributes/ hook).
+        :type attribute_guids_or: list
+
+        :param attribute_guids_or: Match items with any of the given
+         attributes, using the global IDs of the attributes
+         (see the attributes/ hook).
+        :type attribute_guids_and: list
+
+        :param variant_filters: Match items using properties of their variants.
+         Please contact us for help if you'd like to use this hook.
+        :type variant_filters: str
+
+        :param batch_guids: Match items to a list of guids.
+        :type batch_guids: list
+
+        :param skip_useraction_return: Speeds up this hook by not returning
+         any information about purchases of the returned items.
+         Defaults to false.
+        :type skip_useraction_return: bool
+
+        :param filter_expired: Boolean, defaults to true - only returns items
+         that are set to be available in our system.
+        :type filter_expired: bool
+
+        :rtype: dict
+        """
+        pass
+
