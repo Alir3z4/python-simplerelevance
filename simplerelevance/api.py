@@ -457,7 +457,7 @@ class SimpleRelevance(object):
 
         return self.delete('items/', data)
 
-    def actions(self, user_guid=None, item_guide=None, city=None, state=None,
+    def actions(self, user_guid=None, item_guid=None, city=None, state=None,
                 latitude=None, longitude=None, action_type=ActionType.CLICKS,
                 market=None, zipcode=None, radius=None,
                 item_attribute_guids_or=None, item_attribute_guids_and=None,
@@ -470,8 +470,8 @@ class SimpleRelevance(object):
         :param user_guid: Match actions with the given user, by user guid.
         :type user_guid: str
 
-        :param item_guide: Match actions with the given item, by item guid.
-        :type item_guide: str
+        :param item_guid: Match actions with the given item, by item guid.
+        :type item_guid: str
 
         :param city: Match actions near the given city/state combo.
          Requires city and state.
@@ -491,7 +491,7 @@ class SimpleRelevance(object):
 
         :param action_type: Filter actions by action type.
          0 for clicks,1 for purchases, 5 for email opens.
-        :type action_type: str
+        :type action_type: ActionType
 
         :param market: Match actions near the given lat/lon combo.
          Requires latitude and longitude.
