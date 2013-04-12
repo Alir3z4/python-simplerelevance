@@ -544,3 +544,34 @@ class SimpleRelevance(object):
 
         return self.get('actions/', params)
 
+    def action_add(self, item_id, item_name=None, user_email=None,
+                   user_id=None, action_type=ActionType.CLICKS):
+        """
+         Required parameters include:
+        - item_id or item_name (or both),
+        - user_id or email (or both),
+        - and action_type (see above).
+
+         Highly suggested parameters include timestamp (in UTC), price, zipcode, and,
+        if you are matching a preexisting item by name and not by item_id, item_type.
+
+        :param item_id: Match actions with the given item_id.
+        :type item_id: int
+
+        :param item_name: Match actions with the given item_name.
+        :type item_name: str
+
+        :param user_id: Match actions with the given user_id.
+        :type user_id: int
+
+        :param user_email: Match actions with given email.
+        :type user_email: str
+
+        :param action_type: Filter actions by action type.
+         0 for clicks,1 for purchases, 5 for email opens.
+        :type action_type: ActionType
+
+        :rtype: dict
+        """
+        return self.action_update(item_id, item_name,
+                                  user_email,user_id, action_type)
