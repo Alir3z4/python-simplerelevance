@@ -620,3 +620,12 @@ class SimpleRelevance(object):
             params['user_external_id'] = users['results'][0]['external_id']
 
         return self.get('actions/', params)
+
+    def action_delete(self):
+        """
+        Raise an error because action termination is not supported.
+        """
+        raise NotImplementedError(
+            """You cannot delete actions via API at this time.
+            Please email us if this becomes an issue."""
+        )
