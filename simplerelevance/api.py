@@ -575,3 +575,48 @@ class SimpleRelevance(object):
         """
         return self.action_update(item_id, item_name,
                                   user_email,user_id, action_type)
+
+    def action_update(self, item_id, item_name=None, user_email=None,
+                      user_id=None, action_type=ActionType.CLICKS):
+        """
+        Required parameters include:
+        - item_id or item_name (or both),
+        - user_id or email (or both),
+        - and action_type (see above).
+
+        :param item_id: Match actions with the given item_id.
+        :type item_id: int
+
+        :param item_name: Match actions with the given item_name.
+        :type item_name: str
+
+        :param user_id: Match actions with the given user_id.
+        :type user_id: int
+
+        :param user_email: Match actions with given email.
+        :type user_email: str
+
+        :param action_type: Filter actions by action type.
+         0 for clicks,1 for purchases, 5 for email opens.
+        :type action_type: ActionType
+
+        :rtype: dict
+        """
+        params = {}
+        for k, v in locals().items():
+            if v is not self and k and v:
+                params[k] = v
+
+        # dirty patching api
+        items = self.items(item_external_id=params.pop('item_id'))
+        params['item_guid'] = items['results'][0]['purchases']['1']['item_guid']
+
+        if user_email:
+            users = self.users(user_email=params.pop('user_email'))
+            params['user_guid'] = users['results'][0]['guid']
+
+        if user_id:
+            users = self.users(user_external_id=self.pop('user_id'))
+            params['user_external_id'] = users['results'][0]['external_id']
+
+        return self.get('actions/', params)
