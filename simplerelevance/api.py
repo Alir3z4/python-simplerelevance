@@ -3,7 +3,7 @@ import json
 import urllib
 import urllib2
 from simplerelevance.constants.actiontype import ActionType
-from simplerelevance.utils import pair_required, expected_be
+from simplerelevance.utils import pair_required
 
 
 class SimpleRelevance(object):
