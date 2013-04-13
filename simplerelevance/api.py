@@ -659,3 +659,12 @@ class SimpleRelevance(object):
                 params[k] = v
 
         return self.get('attributes/', params)
+
+    def attribute_add(self):
+        raise NotImplementedError(
+            """All attributes should be initially created as part of a POST to
+             /user or /item. See the "Reserved Keys" section for more details.
+             Note that you can (unRESTfully) use the PUT hook to create attributes,
+             if you must"""
+        )
+
