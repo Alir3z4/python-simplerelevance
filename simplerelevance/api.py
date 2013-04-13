@@ -668,3 +668,40 @@ class SimpleRelevance(object):
              if you must"""
         )
 
+    def attribute_update(self, class_id, guid, user_guid, item_guid,
+                         attribute_name, attribute_value):
+        """
+        :param class_id: Set whether this is a user (0) or item (1) attribute.
+        :param class_id: int
+
+        :param guid: Only use this when you want to add an attribute to a
+         given user or item. This will be the guid of the attribute you
+         want to add.
+        :type guid: int
+
+        :param user_guid: The user or item that you wish to add the attribute
+         to, in combination with guid above.
+        :type user_guid: int
+
+        :param item_guid: The user or item that you wish to add the attribute
+         to, in combination with guid above.
+        :type item_guid: int
+
+        :param attribute_name: Update an attribute with this name.
+        :type attribute_name: str
+
+        :param attribute_value: Update an attribute with this value
+         (keep in mind that attributes are name -> value pairs, where you can
+         have multiple values for each name).
+        :type attribute_value str
+
+        :rtype: dict
+        """
+        data = {}
+
+        for k, v in locals().items():
+            if v is not self and k and v:
+                data[k] = v
+
+        return self.put('attributes/', data)
+
