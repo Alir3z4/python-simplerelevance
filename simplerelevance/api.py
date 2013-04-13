@@ -705,3 +705,30 @@ class SimpleRelevance(object):
 
         return self.put('attributes/', data)
 
+    def attribute_delete(self, guid, user_guid=None, item_guid=None,
+                         attribute_name=None):
+        """
+        :param guid: The guid of the attribute to delete.
+        :type guid: int
+
+        :param user_guid: If you use this with guid above, this hook
+         will remove the attribute from the given user or item, rather than
+        :type user_guid: int
+
+        :param item_guid: If you use this with guid above, this hook
+         will remove the attribute from the given user or item, rather than
+         deleting it entirely.
+        :type item_guid: int
+
+        :param attribute_name: Delete all attributes with the given name.
+        :type attribute_name: str
+
+        :rtype: dict
+        """
+        data = {}
+
+        for k, v in locals().items():
+            if v is not self and k and v:
+                data[k] = v
+
+        return self.delete('attributes/', data)
