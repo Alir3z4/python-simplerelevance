@@ -574,7 +574,7 @@ class SimpleRelevance(object):
         :rtype: dict
         """
         return self.action_update(item_id, item_name,
-                                  user_email,user_id, action_type)
+                                  user_email, user_id, action_type)
 
     def action_update(self, item_id, item_name=None, user_email=None,
                       user_id=None, action_type=ActionType.CLICKS):
@@ -602,24 +602,25 @@ class SimpleRelevance(object):
 
         :rtype: dict
         """
-        params = {}
+        data = {}
+
         for k, v in locals().items():
             if v is not self and k and v:
-                params[k] = v
+                data[k] = v
 
         # dirty patching api
-        items = self.items(item_external_id=params.pop('item_id'))
-        params['item_guid'] = items['results'][0]['purchases']['1']['item_guid']
+        items = self.items(item_external_id=data.pop('item_id'))
+        data['item_guid'] = items['results'][0]['purchases']['1']['item_guid']
 
         if user_email:
-            users = self.users(user_email=params.pop('user_email'))
-            params['user_guid'] = users['results'][0]['guid']
+            users = self.users(user_email=data.pop('user_email'))
+            data['user_guid'] = users['results'][0]['guid']
 
         if user_id:
             users = self.users(user_external_id=self.pop('user_id'))
-            params['user_external_id'] = users['results'][0]['external_id']
+            data['user_external_id'] = users['results'][0]['external_id']
 
-        return self.get('actions/', params)
+        return self.post('actions/', data)
 
     def action_delete(self):
         """
@@ -630,7 +631,7 @@ class SimpleRelevance(object):
             Please email us if this becomes an issue."""
         )
 
-    def attributes(self, class_id, guid=None, attribute_name=None, guidlist=None,
+    def attributes(self, class_id, guid, attribute_name=None, guidlist=None,
                    return_type=None):
         """
         :param class_id: Match attributes for items (1) or users (0).
@@ -645,7 +646,8 @@ class SimpleRelevance(object):
         :param guidlist: Retrieve a list of attributes matching guids.
         :type guidlist: list
 
-        :param return_type: A value of "simple" here will result in a smaller, faster response.
+        :param return_type: A value of "simple" here will result in a smaller,
+         faster response.
         :type return_type: str
 
         :rtype: dict
