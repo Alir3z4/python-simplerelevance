@@ -3,6 +3,7 @@ import json
 import urllib
 import urllib2
 from simplerelevance.constants.actiontype import ActionType
+from simplerelevance.constants.endpoint import EndPoint
 from simplerelevance.utils import pair_required
 
 
@@ -200,7 +201,7 @@ class SimpleRelevance(object):
             if v is not self and k and v:
                 params[k] = v
 
-        return self.get('users/', params)
+        return self.get(EndPoint.USERS, params)
 
     def user_add(self, email, zipcode=None, user_id=None, data_dict={}):
         """
@@ -233,7 +234,7 @@ class SimpleRelevance(object):
         if zipcode:
             post_data['zipcode'] = zipcode
 
-        return self.post('users/', post_data)
+        return self.post(EndPoint.USERS, post_data)
 
     def user_delete(self, user_guid, user_external_id=None):
         """
@@ -252,7 +253,7 @@ class SimpleRelevance(object):
             if v is not self and k and v:
                 data[k] = v
 
-        return self.delete('users/', data)
+        return self.delete(EndPoint.USERS, data)
 
     def items(self, item_name=None, item_external_id=None, item_guid=None,
               city=None, state=None, latitude=None, longtitude=None,
@@ -335,7 +336,7 @@ class SimpleRelevance(object):
             if v is not self and k and v:
                 params[k] = v
 
-        return self.get('items/', params)
+        return self.get(EndPoint.ITEMS, params)
 
     def item_add(self, item_name, item_type=None, data_dict={},
                  variants=[]):
@@ -381,7 +382,7 @@ class SimpleRelevance(object):
         if item_type:
             post_data['item_type'] = item_type
 
-        return self.post('items/', post_data)
+        return self.post(EndPoint.ITEMS, post_data)
 
     def item_update(self, item_name, item_id, item_type=None,
                     data_dict={}, variants=[]):
@@ -433,7 +434,7 @@ class SimpleRelevance(object):
         if item_type:
             post_data['item_type'] = item_type
 
-        return self.post('items/', post_data)
+        return self.post(EndPoint.ITEMS, post_data)
 
     def item_delete(self, item_guid, item_external_id=None):
         """
@@ -455,7 +456,7 @@ class SimpleRelevance(object):
             if v is not self and k and v:
                 data[k] = v
 
-        return self.delete('items/', data)
+        return self.delete(EndPoint.ITEMS, data)
 
     def actions(self, user_guid=None, item_guid=None, city=None, state=None,
                 latitude=None, longitude=None, action_type=ActionType.CLICKS,
@@ -542,7 +543,7 @@ class SimpleRelevance(object):
             if v is not self and k and v:
                 params[k] = v
 
-        return self.get('actions/', params)
+        return self.get(EndPoint.ACTIONS, params)
 
     def action_add(self, item_id, item_name=None, user_email=None,
                    user_id=None, action_type=ActionType.CLICKS):
@@ -620,7 +621,7 @@ class SimpleRelevance(object):
             users = self.users(user_external_id=self.pop('user_id'))
             data['user_external_id'] = users['results'][0]['external_id']
 
-        return self.post('actions/', data)
+        return self.post(EndPoint.ACTIONS, data)
 
     def action_delete(self):
         """
@@ -658,7 +659,7 @@ class SimpleRelevance(object):
             if v is not self and k and v:
                 params[k] = v
 
-        return self.get('attributes/', params)
+        return self.get(EndPoint.ATTRIBUTES, params)
 
     def attribute_add(self):
         raise NotImplementedError(
@@ -703,7 +704,7 @@ class SimpleRelevance(object):
             if v is not self and k and v:
                 data[k] = v
 
-        return self.put('attributes/', data)
+        return self.put(EndPoint.ATTRIBUTES, data)
 
     def attribute_delete(self, guid, user_guid=None, item_guid=None,
                          attribute_name=None):
@@ -731,7 +732,6 @@ class SimpleRelevance(object):
             if v is not self and k and v:
                 data[k] = v
 
-        return self.delete('attributes/', data)
         return self.delete(EndPoint.ATTRIBUTES, data)
 
     def predictions(self, email):
