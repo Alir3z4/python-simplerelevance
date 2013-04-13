@@ -629,3 +629,31 @@ class SimpleRelevance(object):
             """You cannot delete actions via API at this time.
             Please email us if this becomes an issue."""
         )
+
+    def attributes(self, class_id, guid=None, attribute_name=None, guidlist=None,
+                   return_type=None):
+        """
+        :param class_id: Match attributes for items (1) or users (0).
+        :type class_id: int
+
+        :param guid: Update an attribute with this guid.
+        :type guid: int
+
+        :param attribute_name: Match attributes by name.
+        :type attribute_name: str
+
+        :param guidlist: Retrieve a list of attributes matching guids.
+        :type guidlist: list
+
+        :param return_type: A value of "simple" here will result in a smaller, faster response.
+        :type return_type: str
+
+        :rtype: dict
+        """
+        params = {}
+
+        for k, v in locals().items():
+            if v is not self and k and v:
+                params[k] = v
+
+        return self.get('attributes/', params)
