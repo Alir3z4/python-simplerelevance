@@ -732,3 +732,14 @@ class SimpleRelevance(object):
                 data[k] = v
 
         return self.delete('attributes/', data)
+        return self.delete(EndPoint.ATTRIBUTES, data)
+
+    def predictions(self, email):
+        """
+        :param email: The email to fetch for.
+        :type email: str
+
+        :rtype: dict
+        """
+        return self.get(EndPoint.PREDICTIONS, {'email': email})
+
