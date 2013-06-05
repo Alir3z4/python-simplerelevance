@@ -2,7 +2,7 @@ from distutils.core import setup
 
 setup(
     name='python-simplerelevance',
-    version='0.1',
+    version='0.1.1',
     packages=['simplerelevance', 'simplerelevance.constants'],
     url='https://github.com/SimpleRelevance/python-simplerelevance',
     license=open('LICENSE').read(),
