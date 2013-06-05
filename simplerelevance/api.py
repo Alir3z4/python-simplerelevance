@@ -67,7 +67,7 @@ class SimpleRelevance(object):
                 raise ValueError("'%s' is not supported.")
 
         try:
-            return urllib2.urlopen(self.authorize(request)).read()
+            return json.loads(urllib2.urlopen(self.authorize(request)).read())
         except urllib2.URLError as e:
             raise urllib2.URLError("%s:\n\t%s" % (e.code, e.read()))
 
